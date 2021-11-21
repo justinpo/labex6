@@ -1,73 +1,74 @@
-import { isBinary, parityGenerator, removeSpace } from '.';
+import { isBinary, generateParity, removeSpace } from '.';
 
-function convertToArray(word) {
-  word = removeSpace(word);
+const convertToArray = (string) => {
+  string = removeSpace(string);
 
-  let message = new Array(5);
+  let output = new Array(5);
 
   for (let i = 0; i < 5; i++) {
-    message[i] = new Array(9);
+    output[i] = new Array(9);
   }
 
   for (let i = 0; i < 5; i++) {
     for (let j = 0; j < 9; j++) {
-      message[i][j] = word[i * 9 + (j + 1) - 1];
+      output[i][j] = string[i * 9 + (j + 1) - 1];
     }
   }
-  return message;
-}
+  return output;
+};
 
-function rowParity(message) {
+const getRowParity = (input) => {
   let error = 0;
-  let tempMessage = [];
+  let temp = [];
   let parityBit;
   let i;
   let j;
+
   for (i = 0; i < 4; i++) {
     for (j = 0; j < 8; j++) {
-      tempMessage.push(message[i][j]);
+      temp.push(input[i][j]);
     }
-    parityBit = parityGenerator(tempMessage);
-    if (parityBit !== parseInt(message[i][j])) error++;
-    tempMessage = [];
+    parityBit = generateParity(temp);
+    if (parityBit !== parseInt(input[i][j])) error++;
+    temp = [];
   }
   return error;
-}
+};
 
-function columnParity(message) {
+const getColumnParity = (input) => {
   let error = 0;
-  let tempMessage = [];
+  let temp = [];
   let parityBit;
   let i;
   let j;
+
   for (j = 0; j < 9; j++) {
     for (i = 0; i < 4; i++) {
-      tempMessage.push(message[i][j]);
+      temp.push(input[i][j]);
     }
-    parityBit = parityGenerator(tempMessage);
-    if (parityBit !== parseInt(message[i][j])) error++;
-    tempMessage = [];
+    parityBit = generateParity(temp);
+    if (parityBit !== parseInt(input[i][j])) error++;
+    temp = [];
   }
   return error;
-}
+};
 
-function twoDimensionalCheck(receivedWord) {
-  receivedWord = removeSpace(receivedWord);
-  let validityB = receivedWord.length === 45 && isBinary(receivedWord);
+const twoDimensionalCheck = (input) => {
+  const word = removeSpace(input);
 
-  let message = '';
-  if (validityB) {
-    let data = convertToArray(receivedWord);
-    let cParity = columnParity(data);
-    let rParity = rowParity(data);
+  let isValid = word.length === 45 && isBinary(word);
 
-    let error = cParity >= rParity ? cParity : rParity;
-    message = 'Error Count: ' + error;
-  } else {
-    message = 'Invalid Input.';
+  if (!isValid) {
+    return 'Invalid Input';
   }
 
-  return message;
-}
+  let data = convertToArray(word);
+  let cParity = getColumnParity(data);
+  let rParity = getRowParity(data);
+
+  let error = cParity >= rParity ? cParity : rParity;
+
+  return 'Error Count: ' + error;
+};
 
 export default twoDimensionalCheck;

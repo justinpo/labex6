@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Container, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Container, Link, Tab, Tabs, Typography } from '@material-ui/core';
 import {
   CheckSum,
   CRC,
@@ -47,6 +47,19 @@ function App() {
           {activeTab === 2 && <CheckSum />}
           {activeTab === 3 && <CRC />}
         </Box>
+      </Box>
+      <Box sx={{ m: '2em 0' }}>
+        <Typography>
+          Source Code:{' '}
+          <a
+            class="link"
+            href="https://github.com/justinpo/labex6"
+            target="_blank"
+            rel="noreferrer"
+          >
+            https://github.com/justinpo/labex6
+          </a>
+        </Typography>
       </Box>
     </Container>
   );

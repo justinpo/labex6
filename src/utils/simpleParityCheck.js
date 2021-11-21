@@ -1,38 +1,33 @@
-import { isBinary, parityGenerator } from '.';
+import { isBinary, generateParity } from '.';
 
-function parityBit(word) {
-  return word[word.length - 1];
-}
+const getParityBit = (bits) => {
+  return bits[bits.length - 1];
+};
 
-function syndromeChecker(receivedWord) {
-  let rParity = parseInt(parityBit(receivedWord));
-  let rCount = parseInt(
-    parityGenerator(receivedWord.substring(0, receivedWord.length - 1))
-  );
+const isSyndrome = (input) => {
+  const rParity = parseInt(getParityBit(input));
+  const rCount = parseInt(generateParity(input.substring(0, input.length - 1)));
 
   return rParity === rCount;
-}
+};
 
-function simpleParityCheck(sentWord, receivedWord) {
-  let validityA = sentWord.length === 8 && isBinary(sentWord);
-  let validityB = receivedWord.length === 9 && isBinary(receivedWord);
-  let syndrome = syndromeChecker(receivedWord);
-  let status = syndrome
-    ? receivedWord.substring(0, receivedWord.length - 1)
+const simpleParityCheck = (inputA, inputB) => {
+  const isInputAValid = inputA.length === 8 && isBinary(inputA);
+  const isInputBValid = inputB.length === 9 && isBinary(inputB);
+
+  if (!isInputAValid || !isInputBValid) {
+    return 'Invalid Input';
+  }
+
+  const status = isSyndrome(inputB)
+    ? inputB.substring(0, inputB.length - 1)
     : 'Discarded';
 
-  let sentCodeword = sentWord + parityGenerator(sentWord);
-  let message = '';
-  if (validityA && validityB)
-    message =
-      '@Sender\nCodeword: ' +
-      sentCodeword +
-      '\n\n' +
-      '@Receiver\nData word: ' +
-      status;
-  else message = 'Invalid Input.';
+  const sentCodeword = inputA + generateParity(inputA);
 
-  return message;
-}
+  const output = `@Sender\nCodeword: ${sentCodeword}\n\n@Receiver\nData word: ${status}`;
+
+  return output;
+};
 
 export default simpleParityCheck;

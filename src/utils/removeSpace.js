@@ -1,5 +1,3 @@
-function removeSpace(string) {
-  return string.replace(/\s/g, '');
-}
+const removeSpace = (string) => string.replace(/\s/g, '');
 
 export default removeSpace;
