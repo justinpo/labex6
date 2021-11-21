@@ -30,7 +30,7 @@ function SimpleParityCheck() {
         onChange={onFirstInputChange}
       />
       <TextField
-        label="Input B (8 bits + Parity bit)"
+        label="Input B (8 bits + parity bit)"
         value={secondInput}
         variant="outlined"
         onChange={onSecondInputChange}

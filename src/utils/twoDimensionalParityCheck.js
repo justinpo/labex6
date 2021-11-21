@@ -1,8 +1,7 @@
-import { isBinary, generateParity, removeSpace } from '.';
+import { isBinary, generateParity, removeSpaces } from '.';
 
-const convertToArray = (string) => {
-  string = removeSpace(string);
-
+const convertToArray = (input) => {
+  let string = removeSpaces(input);
   let output = new Array(5);
 
   for (let i = 0; i < 5; i++) {
@@ -53,8 +52,8 @@ const getColumnParity = (input) => {
   return error;
 };
 
-const twoDimensionalCheck = (input) => {
-  const word = removeSpace(input);
+const twoDimensionalParityCheck = (input) => {
+  const word = removeSpaces(input);
 
   let isValid = word.length === 45 && isBinary(word);
 
@@ -68,7 +67,9 @@ const twoDimensionalCheck = (input) => {
 
   let error = cParity >= rParity ? cParity : rParity;
 
-  return 'Error Count: ' + error;
+  const output = 'Error Count: ' + error;
+
+  return output;
 };
 
-export default twoDimensionalCheck;
+export default twoDimensionalParityCheck;

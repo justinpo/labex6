@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { Box, Container, Link, Tab, Tabs, Typography } from '@material-ui/core';
+import { Box, Container, Tab, Tabs, Typography } from '@material-ui/core';
 import {
   CheckSum,
   CRC,
   SimpleParityCheck,
-  TwoDimensionalCheck,
+  TwoDimensionalParityCheck,
 } from './components';
 
 import './App.css';
@@ -20,7 +20,7 @@ function App() {
     <Container maxWidth="md">
       <Box sx={{ margin: '4em 0 2em' }}>
         <Typography variant="h3" fontWeight={700}>
-          Error Detection Techniques
+          ⚠️ Error Detection Techniques ⚠️
         </Typography>
       </Box>
       <Box
@@ -43,7 +43,7 @@ function App() {
         </Box>
         <Box sx={{ p: '3em' }}>
           {activeTab === 0 && <SimpleParityCheck />}
-          {activeTab === 1 && <TwoDimensionalCheck />}
+          {activeTab === 1 && <TwoDimensionalParityCheck />}
           {activeTab === 2 && <CheckSum />}
           {activeTab === 3 && <CRC />}
         </Box>

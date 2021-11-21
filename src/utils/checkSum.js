@@ -1,11 +1,11 @@
-import { addBinary, isBinary, removeSpace } from '.';
+import { addBinary, isBinary, removeSpaces } from '.';
 
-const separate = (message) => {
-  let data = [];
+const separate = (input) => {
+  let output = [];
   for (let i = 0; i < 5; i++) {
-    data.push(message.substring(i * 8, i * 8 + 8));
+    output.push(input.substring(i * 8, i * 8 + 8));
   }
-  return data;
+  return output;
 };
 
 const getComplement = (binary) => {
@@ -16,11 +16,11 @@ const getComplement = (binary) => {
   return complement;
 };
 
-const getSum = (data) => {
+const getSum = (input) => {
   let temp = [];
-  let currentAns = data[0];
+  let currentAns = input[0];
   for (let i = 1; i < 5; i++) {
-    temp = addBinary(currentAns, data[i]);
+    temp = addBinary(currentAns, input[i]);
     if (temp.length === 9) {
       currentAns = addBinary(temp.substring(1), '1');
     } else {
@@ -32,26 +32,23 @@ const getSum = (data) => {
 };
 
 const checkSum = (input) => {
-  let word = removeSpace(input);
+  const word = removeSpaces(input);
 
-  let isValid = word.length === 40 && isBinary(word);
+  const isValid = word.length === 40 && isBinary(word);
 
   if (!isValid) {
     return 'Invalid Input';
   }
 
-  let output;
-  let data = separate(word);
-  let sum = getSum(data);
-  let complement = getComplement(sum);
+  const data = separate(word);
+  const sum = getSum(data);
+  const complement = getComplement(sum);
 
   if (complement === '00000000') {
-    output = 'Accept Data';
+    return 'Accept Data';
   } else {
-    output = 'Checksum error detected';
+    return 'Checksum error detected';
   }
-
-  return output;
 };
 
 export default checkSum;

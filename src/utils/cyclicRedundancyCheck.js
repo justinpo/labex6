@@ -1,12 +1,15 @@
 import { isBinary } from '.';
 
 const binaryOr = (str1, str2) => {
-  let ans = '';
+  let output = '';
   for (var i = 1; i < 4; i++) {
-    if (str1[i] === str2[i]) ans += '0';
-    else ans += '1';
+    if (str1[i] === str2[i]) {
+      output += '0';
+    } else {
+      output += '1';
+    }
   }
-  return ans;
+  return output;
 };
 
 const divideCrc = (dividend) => {
@@ -30,16 +33,16 @@ const cyclicRedundancyCheck = (input) => {
     return 'Invalid Input';
   }
 
-  let message;
+  let output;
   let remainder = divideCrc(input);
 
   if (remainder === '000') {
-    message = 'Accept Data';
+    output = 'Accept Data';
   } else {
-    message = 'CRC error detected';
+    output = 'CRC error detected';
   }
 
-  return message;
+  return output;
 };
 
 export default cyclicRedundancyCheck;

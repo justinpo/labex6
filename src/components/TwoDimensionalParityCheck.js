@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 
-import { twoDimensionalCheck } from '../utils';
+import { twoDimensionalParityCheck } from '../utils';
 
-function TwoDimensionalCheck() {
+function TwoDimensionalParityCheck() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 
@@ -12,7 +12,7 @@ function TwoDimensionalCheck() {
   }
 
   function onCheck() {
-    const result = twoDimensionalCheck(input);
+    const result = twoDimensionalParityCheck(input);
     setOutput(result);
   }
 
@@ -34,4 +34,4 @@ function TwoDimensionalCheck() {
   );
 }
 
-export default TwoDimensionalCheck;
+export default TwoDimensionalParityCheck;
